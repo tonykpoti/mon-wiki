@@ -1,0 +1,1854 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation personnelle DBA Oracle & PostgreSQL">
+      
+      
+        <meta name="author" content="Antoine Koffi KPOTI">
+      
+      
+        <link rel="canonical" href="https://tonykpoti.github.io/mon-wiki/oracle/installation-binaire-oracle-19c/">
+      
+      
+        <link rel="prev" href="../oracle-dataguard-19c-eliora/">
+      
+      
+        <link rel="next" href="../../projets/guide-wiki-github-pages-mkdocs/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Installation Oracle 19c - Wiki Tony KPOTI</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#installation-binaire-oracle-19c" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../.." title="Wiki Tony KPOTI" class="md-header__button md-logo" aria-label="Wiki Tony KPOTI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Wiki Tony KPOTI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Installation Oracle 19c
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Accueil
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../oracle-dataguard-19c-eliora/" class="md-tabs__link">
+          
+  
+  
+  Oracle
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Installation Oracle 19c
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../postgresql/index.md" class="md-tabs__link">
+          
+  
+  
+  PostgreSQL
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../linux/oracle-linux-8.md Instal-binaire-Orcale.md" class="md-tabs__link">
+          
+  
+  
+  Linux
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../réseau/Réseau-IP-fixe.md" class="md-tabs__link">
+          
+  
+  
+  Réseau
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../projets/guide-wiki-github-pages-mkdocs/" class="md-tabs__link">
+          
+  
+  
+  Projets
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Wiki Tony KPOTI" class="md-nav__button md-logo" aria-label="Wiki Tony KPOTI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Wiki Tony KPOTI
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Oracle
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Oracle
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../oracle-dataguard-19c-eliora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Guard 19c
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation Oracle 19c
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation Oracle 19c
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#environnement-oracle-linux-8-base-eliora" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environnement : Oracle Linux 8 — Base ELIORA
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sommaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sommaire
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-preparation-des-disques-lvm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Préparation des disques LVM
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Préparation des disques LVM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#montage-permanent-etcfstab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Montage permanent — /etc/fstab
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-configuration-systeme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Configuration système
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Configuration système">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fichier-etchosts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fichier /etc/hosts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#desactiver-selinux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Désactiver SELinux
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-prerequis-oracle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Prérequis Oracle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-variables-denvironnement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Variables d'environnement
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Variables d&#39;environnement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fichier-bash_profile-utilisateur-oracle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fichier ~/.bash_profile (utilisateur oracle)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-installation-du-binaire-oracle-19c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Installation du binaire Oracle 19c
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Installation du binaire Oracle 19c">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scripts-root-a-executer-apres-linstallation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scripts root à exécuter après l'installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification-post-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vérification post-installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-demarrage-automatique-au-boot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Démarrage automatique au boot
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Démarrage automatique au boot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modifier-etcoratab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modifier /etc/oratab
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activer-dbstart-au-boot-via-rclocal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Activer dbstart au boot via rc.local
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-creation-des-repertoires-et-liens-symboliques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Création des répertoires et liens symboliques
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-creation-de-la-base-via-dbca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Création de la base via DBCA
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-structure-des-fichiers-de-controle-et-redo-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Structure des fichiers de contrôle et redo logs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Structure des fichiers de contrôle et redo logs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fichiers-de-controle-multiplexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fichiers de contrôle (multiplexés)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redo-logs-multiplexes-3-groupes-x-2-membres" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Redo logs (multiplexés — 3 groupes x 2 membres)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acces-oracle-enterprise-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accès Oracle Enterprise Manager
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PostgreSQL
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    PostgreSQL
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../postgresql/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/oracle-linux-8.md Instal-binaire-Orcale.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Oracle Linux 8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Réseau
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Réseau
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../réseau/Réseau-IP-fixe.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Réseau IP fixe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projets
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Projets
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projets/guide-wiki-github-pages-mkdocs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mon Wiki
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#environnement-oracle-linux-8-base-eliora" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environnement : Oracle Linux 8 — Base ELIORA
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sommaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sommaire
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-preparation-des-disques-lvm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Préparation des disques LVM
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Préparation des disques LVM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#montage-permanent-etcfstab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Montage permanent — /etc/fstab
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-configuration-systeme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Configuration système
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Configuration système">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fichier-etchosts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fichier /etc/hosts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#desactiver-selinux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Désactiver SELinux
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-prerequis-oracle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Prérequis Oracle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-variables-denvironnement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Variables d'environnement
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Variables d&#39;environnement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fichier-bash_profile-utilisateur-oracle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fichier ~/.bash_profile (utilisateur oracle)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-installation-du-binaire-oracle-19c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Installation du binaire Oracle 19c
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Installation du binaire Oracle 19c">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scripts-root-a-executer-apres-linstallation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scripts root à exécuter après l'installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification-post-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vérification post-installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-demarrage-automatique-au-boot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Démarrage automatique au boot
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Démarrage automatique au boot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modifier-etcoratab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modifier /etc/oratab
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activer-dbstart-au-boot-via-rclocal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Activer dbstart au boot via rc.local
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-creation-des-repertoires-et-liens-symboliques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Création des répertoires et liens symboliques
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-creation-de-la-base-via-dbca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Création de la base via DBCA
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-structure-des-fichiers-de-controle-et-redo-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Structure des fichiers de contrôle et redo logs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Structure des fichiers de contrôle et redo logs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fichiers-de-controle-multiplexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fichiers de contrôle (multiplexés)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redo-logs-multiplexes-3-groupes-x-2-membres" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Redo logs (multiplexés — 3 groupes x 2 membres)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acces-oracle-enterprise-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accès Oracle Enterprise Manager
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="installation-binaire-oracle-19c">Installation Binaire Oracle 19c</h1>
+<h2 id="environnement-oracle-linux-8-base-eliora">Environnement : Oracle Linux 8 — Base ELIORA</h2>
+<hr />
+<h2 id="sommaire">Sommaire</h2>
+<ol>
+<li><a href="#1-préparation-des-disques-lvm">Préparation des disques LVM</a></li>
+<li><a href="#2-configuration-système">Configuration système</a></li>
+<li><a href="#3-prérequis-oracle">Prérequis Oracle</a></li>
+<li><a href="#4-variables-denvironnement">Variables d'environnement</a></li>
+<li><a href="#5-installation-du-binaire-oracle-19c">Installation du binaire Oracle 19c</a></li>
+<li><a href="#6-démarrage-automatique-au-boot">Démarrage automatique au boot</a></li>
+<li><a href="#7-création-des-répertoires-et-liens-symboliques">Création des répertoires et liens symboliques</a></li>
+<li><a href="#8-création-de-la-base-via-dbca">Création de la base via DBCA</a></li>
+<li><a href="#9-structure-des-fichiers-de-contrôle-et-redo-logs">Structure des fichiers de contrôle et redo logs</a></li>
+</ol>
+<hr />
+<h2 id="1-preparation-des-disques-lvm">1. Préparation des disques LVM</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Vérifier les disques disponibles</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>lsblk
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>df<span class="w"> </span>-h
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>fdisk<span class="w"> </span>-l<span class="w"> </span>/dev/sdb
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>fdisk<span class="w"> </span>-l<span class="w"> </span>/dev/sda
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># Vérifier les groupes de volumes existants</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>vgs
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1"># Créer le groupe de volumes</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>vgcreate<span class="w"> </span>vg_oracle<span class="w"> </span>/dev/sda
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>vgs
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="c1"># Créer les volumes logiques</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>lvs
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>lvcreate<span class="w"> </span>-L<span class="w"> </span>30G<span class="w"> </span>-n<span class="w"> </span>lv_oracle<span class="w">   </span>vg_oracle
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>lvcreate<span class="w"> </span>-L<span class="w"> </span>50G<span class="w"> </span>-n<span class="w"> </span>lv_oradata<span class="w">  </span>vg_oracle
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>lvcreate<span class="w"> </span>-L<span class="w"> </span>10G<span class="w"> </span>-n<span class="w"> </span>lv_orarman<span class="w">  </span>vg_oracle
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>lvcreate<span class="w"> </span>-L<span class="w"> </span>10G<span class="w"> </span>-n<span class="w"> </span>lv_oraarch<span class="w">  </span>vg_oracle
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="c1"># Formater en ext4</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>mkfs.ext4<span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>/dev/vg_oracle/lv_oracle
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>mkfs.ext4<span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>/dev/vg_oracle/lv_oradata
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>mkfs.ext4<span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>/dev/vg_oracle/lv_orarman
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>mkfs.ext4<span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>/dev/vg_oracle/lv_oraarch
+</code></pre></div>
+<h3 id="montage-permanent-etcfstab">Montage permanent — /etc/fstab</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>vi<span class="w"> </span>/etc/fstab
+</code></pre></div>
+<p>Ajouter les lignes suivantes :</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/dev/mapper/vg_oracle-lv_oracle  /oracle   ext4  defaults  0 0
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/dev/mapper/vg_oracle-lv_oradata /oradata  ext4  defaults  0 0
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>/dev/mapper/vg_oracle-lv_orarman /orarman  ext4  defaults  0 0
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>/dev/mapper/vg_oracle-lv_oraarch /oraarch  ext4  defaults  0 0
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Monter tous les systèmes de fichiers</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>mount<span class="w"> </span>-a
+</code></pre></div>
+<hr />
+<h2 id="2-configuration-systeme">2. Configuration système</h2>
+<h3 id="fichier-etchosts">Fichier /etc/hosts</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>vi<span class="w"> </span>/etc/hosts
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>172.20.10.12  oravm19tony
+</code></pre></div>
+<h3 id="desactiver-selinux">Désactiver SELinux</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>vi<span class="w"> </span>/etc/selinux/config
+</code></pre></div>
+<p>Remplacer :
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>SELINUX=enforcing
+</code></pre></div>
+par :
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>SELINUX=permissive
+</code></pre></div></p>
+<p>Appliquer immédiatement sans reboot :</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>setenforce<span class="w"> </span>Permissive
+</code></pre></div>
+<hr />
+<h2 id="3-prerequis-oracle">3. Prérequis Oracle</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Mise à jour du système</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>dnf<span class="w"> </span>update<span class="w"> </span>-y
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># Installation du paquet preinstall Oracle 19c</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="c1"># Configure automatiquement : kernel params, limites, groupes oinstall/dba/...</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>dnf<span class="w"> </span>install<span class="w"> </span>oracle-database-preinstall-19c<span class="w"> </span>-y
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="c1"># Dépendances complémentaires si nécessaire</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>dnf<span class="w"> </span>install<span class="w"> </span>compat-libcap1<span class="w"> </span>-y
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>dnf<span class="w"> </span>install<span class="w"> </span>libcap<span class="w"> </span>libcap-ng<span class="w"> </span>-y
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="c1"># Créer les répertoires Oracle</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/oracle/product/19.0.0/dbhome_1
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/home/oracle/oraInventory
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="c1"># Droits</span>
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>chown<span class="w"> </span>-R<span class="w"> </span>oracle:oinstall<span class="w"> </span>/opt/oracle<span class="w"> </span>/home/oracle/oraInventory
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>chmod<span class="w"> </span>-R<span class="w"> </span><span class="m">775</span><span class="w"> </span>/opt/oracle
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>
+<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="c1"># Placer le binaire Oracle ici avant installation</span>
+<a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/sources/oracle/
+</code></pre></div>
+<hr />
+<h2 id="4-variables-denvironnement">4. Variables d'environnement</h2>
+<h3 id="fichier-bash_profile-utilisateur-oracle">Fichier ~/.bash_profile (utilisateur oracle)</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>vi<span class="w"> </span>/home/oracle/.bash_profile
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># .bash_profile</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span>~/.bashrc<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span>.<span class="w"> </span>~/.bashrc
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="k">fi</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1"># Oracle Settings</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TMP</span><span class="o">=</span>/tmp
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TMPDIR</span><span class="o">=</span><span class="nv">$TMP</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ORACLE_HOSTNAME</span><span class="o">=</span>oravm19tony
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ORACLE_UNQNAME</span><span class="o">=</span>ELIORA
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ORACLE_SID</span><span class="o">=</span>ELIORA
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ORACLE_BASE</span><span class="o">=</span>/opt/oracle
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ORACLE_HOME</span><span class="o">=</span><span class="nv">$ORACLE_BASE</span>/product/19.0.0/dbhome_1
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ORA_INVENTORY</span><span class="o">=</span>/home/oracle/oraInventory
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/usr/sbin:/usr/local/bin:<span class="nv">$PATH</span>
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$ORACLE_HOME</span>/bin:<span class="nv">$PATH</span>
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>
+<a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$ORACLE_HOME</span>/lib:/lib:/usr/lib
+<a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a><span class="nb">export</span><span class="w"> </span><span class="nv">CLASSPATH</span><span class="o">=</span><span class="nv">$ORACLE_HOME</span>/jlib:<span class="nv">$ORACLE_HOME</span>/rdbms/jlib
+<a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a>
+<a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a><span class="nb">export</span><span class="w"> </span><span class="nv">NLS_LANG</span><span class="o">=</span>AMERICAN_AMERICA.AL32UTF8
+<a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a><span class="nb">export</span><span class="w"> </span><span class="nv">NLS_DATE_FORMAT</span><span class="o">=</span><span class="s1">&#39;DD-MM-YYYY HH24:MI:SS&#39;</span>
+<a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a>
+<a id="__codelineno-12-28" name="__codelineno-12-28" href="#__codelineno-12-28"></a>clear
+<a id="__codelineno-12-29" name="__codelineno-12-29" href="#__codelineno-12-29"></a><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\n====== Variables Oracle ======\n&quot;</span>
+<a id="__codelineno-12-30" name="__codelineno-12-30" href="#__codelineno-12-30"></a>env<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ORACLE
+<a id="__codelineno-12-31" name="__codelineno-12-31" href="#__codelineno-12-31"></a><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\n==============================\n&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Recharger le profil</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nb">source</span><span class="w"> </span>/home/oracle/.bash_profile
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Vérifier</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$ORACLE_BASE</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$ORACLE_HOME</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$ORACLE_SID</span>
+</code></pre></div>
+<hr />
+<h2 id="5-installation-du-binaire-oracle-19c">5. Installation du binaire Oracle 19c</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Se connecter en oracle</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>su<span class="w"> </span>-<span class="w"> </span>oracle
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1"># Décompresser le binaire dans ORACLE_HOME</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="nb">cd</span><span class="w"> </span><span class="nv">$ORACLE_HOME</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>unzip<span class="w"> </span>-oq<span class="w"> </span>/sources/oracle/Oracle_Database_19.3.0.zip
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="c1"># Contournement pour OL8 (Oracle vérifie OL7 par défaut)</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="nb">export</span><span class="w"> </span><span class="nv">CV_ASSUME_DISTID</span><span class="o">=</span>OL7
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="c1"># Lancer l&#39;installateur graphique</span>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>./runInstaller
+</code></pre></div>
+<blockquote>
+<p><strong>Note</strong> : L'installateur graphique (<code>runInstaller</code>) nécessite un affichage X11 ou une session graphique. En mode silencieux, utiliser l'option <code>-silent</code>.</p>
+</blockquote>
+<h3 id="scripts-root-a-executer-apres-linstallation">Scripts root à exécuter après l'installation</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># En tant que root</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>/opt/oracle/product/19.0.0/dbhome_1/root.sh
+</code></pre></div>
+<h3 id="verification-post-installation">Vérification post-installation</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>sqlplus<span class="w"> </span>/<span class="w"> </span>as<span class="w"> </span>sysdba
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>startup
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>SELECT<span class="w"> </span>STATUS<span class="w"> </span>FROM<span class="w"> </span>V<span class="nv">$INSTANCE</span><span class="p">;</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>EXIT<span class="p">;</span>
+</code></pre></div>
+<hr />
+<h2 id="6-demarrage-automatique-au-boot">6. Démarrage automatique au boot</h2>
+<h3 id="modifier-etcoratab">Modifier /etc/oratab</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># En root</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>vi<span class="w"> </span>/etc/oratab
+</code></pre></div>
+<p>Changer <code>N</code> en <code>Y</code> pour ELIORA :</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>ELIORA:/opt/oracle/product/19.0.0/dbhome_1:Y
+</code></pre></div>
+<h3 id="activer-dbstart-au-boot-via-rclocal">Activer dbstart au boot via rc.local</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>vi<span class="w"> </span>/etc/rc.d/rc.local
+</code></pre></div>
+<p>Ajouter :</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>su<span class="w"> </span>-<span class="w"> </span>oracle<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;/opt/oracle/product/19.0.0/dbhome_1/bin/dbstart </span><span class="nv">$ORACLE_HOME</span><span class="s2">&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># Rendre rc.local exécutable</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>chmod<span class="w"> </span>+x<span class="w"> </span>/etc/rc.d/rc.local
+</code></pre></div>
+<blockquote>
+<p><strong>Alternative</strong> : Utiliser un service systemd <code>/etc/systemd/system/oracle-db-start.service</code> pour un démarrage plus propre.</p>
+</blockquote>
+<hr />
+<h2 id="7-creation-des-repertoires-et-liens-symboliques">7. Création des répertoires et liens symboliques</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># En tant qu&#39;oracle</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>su<span class="w"> </span>-<span class="w"> </span>oracle
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="c1"># Répertoires dans /opt/oracle/oradata</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/oracle/oradata/ELIORA/base
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/oracle/oradata/ELIORA/adump
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/oracle/oradata/ELIORA/cdump
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/oracle/oradata/ELIORA/udump
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/oracle/oradata/ELIORA/adhoc
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/oracle/oradata/ELIORA/conf
+<a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/oracle/oradata/ELIORA/create
+<a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/oracle/oradata/ELIORA/customize
+<a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/oracle/oradata/ELIORA/logbook
+<a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/oracle/oradata/ELIORA/tmp
+<a id="__codelineno-22-15" name="__codelineno-22-15" href="#__codelineno-22-15"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/oracle/oradata/ELIORA/wallet
+<a id="__codelineno-22-16" name="__codelineno-22-16" href="#__codelineno-22-16"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/oracle/oradata/ELIORA/diag
+<a id="__codelineno-22-17" name="__codelineno-22-17" href="#__codelineno-22-17"></a>
+<a id="__codelineno-22-18" name="__codelineno-22-18" href="#__codelineno-22-18"></a><span class="c1"># Répertoires dans /opt/oracle/orasave</span>
+<a id="__codelineno-22-19" name="__codelineno-22-19" href="#__codelineno-22-19"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/oracle/orasave/ELIORA/arch
+<a id="__codelineno-22-20" name="__codelineno-22-20" href="#__codelineno-22-20"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/oracle/orasave/ELIORA/echange
+<a id="__codelineno-22-21" name="__codelineno-22-21" href="#__codelineno-22-21"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/oracle/orasave/ELIORA/exp
+<a id="__codelineno-22-22" name="__codelineno-22-22" href="#__codelineno-22-22"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/oracle/orasave/ELIORA/fra
+<a id="__codelineno-22-23" name="__codelineno-22-23" href="#__codelineno-22-23"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/oracle/orasave/ELIORA/mirror
+<a id="__codelineno-22-24" name="__codelineno-22-24" href="#__codelineno-22-24"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/oracle/orasave/ELIORA/rman
+<a id="__codelineno-22-25" name="__codelineno-22-25" href="#__codelineno-22-25"></a>
+<a id="__codelineno-22-26" name="__codelineno-22-26" href="#__codelineno-22-26"></a><span class="c1"># Droits</span>
+<a id="__codelineno-22-27" name="__codelineno-22-27" href="#__codelineno-22-27"></a>chown<span class="w"> </span>-R<span class="w"> </span>oracle:oinstall<span class="w"> </span>/opt/oracle/oradata/ELIORA
+<a id="__codelineno-22-28" name="__codelineno-22-28" href="#__codelineno-22-28"></a>chown<span class="w"> </span>-R<span class="w"> </span>oracle:oinstall<span class="w"> </span>/opt/oracle/orasave/ELIORA
+<a id="__codelineno-22-29" name="__codelineno-22-29" href="#__codelineno-22-29"></a>chmod<span class="w"> </span>-R<span class="w"> </span><span class="m">750</span><span class="w"> </span>/opt/oracle/oradata/ELIORA
+<a id="__codelineno-22-30" name="__codelineno-22-30" href="#__codelineno-22-30"></a>chmod<span class="w"> </span>-R<span class="w"> </span><span class="m">750</span><span class="w"> </span>/opt/oracle/orasave/ELIORA
+<a id="__codelineno-22-31" name="__codelineno-22-31" href="#__codelineno-22-31"></a>
+<a id="__codelineno-22-32" name="__codelineno-22-32" href="#__codelineno-22-32"></a><span class="c1"># Création des liens symboliques</span>
+<a id="__codelineno-22-33" name="__codelineno-22-33" href="#__codelineno-22-33"></a><span class="nb">cd</span><span class="w"> </span>/opt/oracle/oradata/ELIORA
+<a id="__codelineno-22-34" name="__codelineno-22-34" href="#__codelineno-22-34"></a>
+<a id="__codelineno-22-35" name="__codelineno-22-35" href="#__codelineno-22-35"></a>ln<span class="w"> </span>-s<span class="w"> </span>/opt/oracle/orasave/ELIORA/arch<span class="w">    </span>arch
+<a id="__codelineno-22-36" name="__codelineno-22-36" href="#__codelineno-22-36"></a>ln<span class="w"> </span>-s<span class="w"> </span>/opt/oracle/orasave/ELIORA/echange<span class="w"> </span>echange
+<a id="__codelineno-22-37" name="__codelineno-22-37" href="#__codelineno-22-37"></a>ln<span class="w"> </span>-s<span class="w"> </span>/opt/oracle/orasave/ELIORA/exp<span class="w">     </span>exp
+<a id="__codelineno-22-38" name="__codelineno-22-38" href="#__codelineno-22-38"></a>ln<span class="w"> </span>-s<span class="w"> </span>/opt/oracle/orasave/ELIORA/fra<span class="w">     </span>fra
+<a id="__codelineno-22-39" name="__codelineno-22-39" href="#__codelineno-22-39"></a>ln<span class="w"> </span>-s<span class="w"> </span>/opt/oracle/orasave/ELIORA/mirror<span class="w">  </span>mirror
+<a id="__codelineno-22-40" name="__codelineno-22-40" href="#__codelineno-22-40"></a>ln<span class="w"> </span>-s<span class="w"> </span>/opt/oracle/orasave/ELIORA/rman<span class="w">    </span>rman
+<a id="__codelineno-22-41" name="__codelineno-22-41" href="#__codelineno-22-41"></a>
+<a id="__codelineno-22-42" name="__codelineno-22-42" href="#__codelineno-22-42"></a><span class="c1"># Vérifier</span>
+<a id="__codelineno-22-43" name="__codelineno-22-43" href="#__codelineno-22-43"></a>ll<span class="w"> </span>/opt/oracle/oradata/ELIORA
+</code></pre></div>
+<hr />
+<h2 id="8-creation-de-la-base-via-dbca">8. Création de la base via DBCA</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># En tant qu&#39;oracle</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>su<span class="w"> </span>-<span class="w"> </span>oracle
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="c1"># Lancer DBCA en mode graphique</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>dbca
+</code></pre></div>
+<blockquote>
+<p><strong>Format des archives</strong> : <code>ELIORA_%t_%s_%r.arc</code></p>
+</blockquote>
+<hr />
+<h2 id="9-structure-des-fichiers-de-controle-et-redo-logs">9. Structure des fichiers de contrôle et redo logs</h2>
+<h3 id="fichiers-de-controle-multiplexes">Fichiers de contrôle (multiplexés)</h3>
+<table>
+<thead>
+<tr>
+<th>Fichier</th>
+<th>Emplacement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>control01.ctl</td>
+<td>/opt/oracle/oradata/ELIORA/base/ELIORA/</td>
+</tr>
+<tr>
+<td>control02.ctl</td>
+<td>/opt/oracle/orasave/ELIORA/mirror/ELIORA/</td>
+</tr>
+</tbody>
+</table>
+<h3 id="redo-logs-multiplexes-3-groupes-x-2-membres">Redo logs (multiplexés — 3 groupes x 2 membres)</h3>
+<table>
+<thead>
+<tr>
+<th>Groupe</th>
+<th>Membre A</th>
+<th>Membre B (miroir)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Group 1</td>
+<td>/opt/oracle/oradata/ELIORA/base/ELIORA/redo01_01.rdo</td>
+<td>/opt/oracle/orasave/ELIORA/mirror/ELIORA/redo01_02.rdo</td>
+</tr>
+<tr>
+<td>Group 2</td>
+<td>/opt/oracle/oradata/ELIORA/base/ELIORA/redo02_01.rdo</td>
+<td>/opt/oracle/orasave/ELIORA/mirror/ELIORA/redo02_02.rdo</td>
+</tr>
+<tr>
+<td>Group 3</td>
+<td>/opt/oracle/oradata/ELIORA/base/ELIORA/redo03_01.rdo</td>
+<td>/opt/oracle/orasave/ELIORA/mirror/ELIORA/redo03_02.rdo</td>
+</tr>
+</tbody>
+</table>
+<h3 id="acces-oracle-enterprise-manager">Accès Oracle Enterprise Manager</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>https://oravm19tony:5500/em
+</code></pre></div>
+<hr />
+<p><em>Doc lab personnel — Tony KPOTI — Juin 2026</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
